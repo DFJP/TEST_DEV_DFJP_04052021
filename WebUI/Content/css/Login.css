@@ -1,0 +1,16 @@
+﻿body {
+    background: #12146d;
+    color: #fff;
+}
+
+hr{
+    margin:10px 0px;
+    width: 410px;
+}
+
+@media (max-width: 990px) {
+    hr {
+        margin: 10px 0px;
+        width: 285px;
+    }
+}
