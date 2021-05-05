@@ -5,86 +5,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+@Styles.Render("~/Content/css/Login.css")
 
-<button class="btn btn-primary btn-lg"> 
-    <a style="color:#fff; text-decoration: none" href="@Url.Action("Nueva", "PersonaFisica")">
+<h2>Persona Física</h2>
+
+<button id="btnNueva" class="btn btn-primary btn-lg">
+    <a href="@Url.Action("Nueva", "PersonaFisica")">
         Nueva Persona Física
     </a>
 </button>
-<table class="table table-striped table-sm">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdPersonaFisica)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaRegistro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaActualizacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ApellidoPaterno)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ApellidoMaterno)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RFC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaNacimiento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UsuarioAgrega)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Activo)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdPersonaFisica)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaRegistro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaActualizacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApellidoPaterno)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApellidoMaterno)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RFC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaNacimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsuarioAgrega)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Activo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+<table id="tblPersonas" class="display">
+
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.IdPersonaFisica)</th>
+            <th>@Html.DisplayNameFor(model => model.FechaRegistro)</th>
+            <th>@Html.DisplayNameFor(model => model.FechaActualizacion)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.ApellidoPaterno)</th>
+            <th>@Html.DisplayNameFor(model => model.ApellidoMaterno)</th>
+            <th>@Html.DisplayNameFor(model => model.RFC)</th>
+            <th>@Html.DisplayNameFor(model => model.FechaNacimiento)</th>
+            <th>@Html.DisplayNameFor(model => model.UsuarioAgrega)</th>
+            <th>@Html.DisplayNameFor(model => model.Activo)</th>
+            <th>Operaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.IdPersonaFisica)</td>
+                <td>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.FechaRegistro))</td>
+                <td>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.FechaActualizacion))</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.ApellidoPaterno)</td>
+                <td>@Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                <td>@Html.DisplayFor(modelItem => item.RFC)</td>
+                <td>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.FechaNacimiento))</td>
+                <td>@Html.DisplayFor(modelItem => item.UsuarioAgrega)</td>
+                <td>@((bool)item.Activo ? "Sí":"No")</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.IdPersonaFisica }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IdPersonaFisica }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IdPersonaFisica })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    
+
+    
 
 </table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#tblPersonas').DataTable();
+        });
+    </script>
+}

@@ -1,6 +1,5 @@
-﻿body {
-    background: #12146d;
-    color: #fff;
+﻿#btnNueva{
+    margin-bottom: 20px;
 }
 
 hr{
@@ -13,4 +12,15 @@ hr{
         margin: 10px 0px;
         width: 285px;
     }
+}
+
+@media (min-width: 1200px){
+    .container {
+        width: 1500px;
+    }
+}
+
+a {
+    text-decoration: none;
+    color:#000;
 }
