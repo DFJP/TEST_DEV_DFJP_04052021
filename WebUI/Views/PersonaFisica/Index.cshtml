@@ -10,7 +10,7 @@
 <h2>Persona Física</h2>
 
 <button id="btnNueva" class="btn btn-primary btn-lg">
-    <a href="@Url.Action("Nueva", "PersonaFisica")">
+    <a href="@Url.Action("Create", "PersonaFisica")">
         Nueva Persona Física
     </a>
 </button>
@@ -47,18 +47,12 @@
                 <td>@Html.DisplayFor(modelItem => item.UsuarioAgrega)</td>
                 <td>@((bool)item.Activo ? "Sí":"No")</td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.IdPersonaFisica }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.IdPersonaFisica }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.IdPersonaFisica })
+                    @Html.ActionLink("Editar", "Edit", new { id=item.IdPersonaFisica }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdPersonaFisica })
                 </td>
             </tr>
         }
     </tbody>
-
-    
-
-    
-
 </table>
 
 @section scripts{

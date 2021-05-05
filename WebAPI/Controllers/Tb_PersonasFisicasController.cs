@@ -37,35 +37,35 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutTb_PersonasFisicas(int id, Tb_PersonasFisicas tb_PersonasFisicas)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != tb_PersonasFisicas.IdPersonaFisica)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(tb_PersonasFisicas).State = EntityState.Modified;
+            ErrorMensaje personas = new ErrorMensaje();
 
             try
             {
-                db.SaveChanges();
+                using (var db = new TOKAEntities())
+                {
+                    personas = db.Database.SqlQuery<ErrorMensaje>("exec sp_ActualizarPersonaFisica " +
+                        "@IdPersonaFisica, " +
+                        "@Nombre, " +
+                        "@ApellidoPaterno, " +
+                        "@ApellidoMaterno, " +
+                        "@RFC, " +
+                        "@FechaNacimiento, " +
+                        "@UsuarioAgrega ",
+                        new SqlParameter("@IdPersonaFisica", id),
+                        new SqlParameter("@Nombre", tb_PersonasFisicas.Nombre),
+                        new SqlParameter("@ApellidoPaterno", tb_PersonasFisicas.ApellidoPaterno),
+                        new SqlParameter("@ApellidoMaterno", tb_PersonasFisicas.ApellidoMaterno),
+                        new SqlParameter("@RFC", tb_PersonasFisicas.RFC),
+                        new SqlParameter("@FechaNacimiento", tb_PersonasFisicas.FechaNacimiento),
+                        new SqlParameter("@UsuarioAgrega", tb_PersonasFisicas.UsuarioAgrega)).FirstOrDefault();
+                }
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
-                if (!Tb_PersonasFisicasExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw new Exception(e.Message);
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(personas);
         }
 
         // POST: api/Tb_PersonasFisicas
@@ -98,14 +98,6 @@ namespace WebAPI.Controllers
                 throw new Exception(e.Message);
             }
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-
-            //db.Tb_PersonasFisicas.Add(tb_PersonasFisicas);
-            //db.SaveChanges();
-
             return Ok(personas);
         }
 
@@ -113,16 +105,23 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Tb_PersonasFisicas))]
         public IHttpActionResult DeleteTb_PersonasFisicas(int id)
         {
-            Tb_PersonasFisicas tb_PersonasFisicas = db.Tb_PersonasFisicas.Find(id);
-            if (tb_PersonasFisicas == null)
+            ErrorMensaje personas = new ErrorMensaje();
+
+            try
             {
-                return NotFound();
+                using (var db = new TOKAEntities())
+                {
+                    personas = db.Database.SqlQuery<ErrorMensaje>("exec sp_EliminarPersonaFisica " +
+                        "@IdPersonaFisica ",
+                        new SqlParameter("@IdPersonaFisica", id)).FirstOrDefault();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
 
-            db.Tb_PersonasFisicas.Remove(tb_PersonasFisicas);
-            db.SaveChanges();
-
-            return Ok(tb_PersonasFisicas);
+            return Ok(personas);
         }
 
         protected override void Dispose(bool disposing)
