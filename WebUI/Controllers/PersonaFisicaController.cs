@@ -12,7 +12,7 @@ using WebAPI.Models;
 
 namespace WebUI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class PersonaFisicaController : Controller
     {
         // GET: PersonaFisica

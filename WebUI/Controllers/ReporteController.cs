@@ -13,6 +13,7 @@ using WebUI.Objects;
 
 namespace WebUI.Controllers
 {
+    [Authorize]
     public class ReporteController : Controller
     {
         // GET: Reporte

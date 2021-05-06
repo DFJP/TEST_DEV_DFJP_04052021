@@ -6,10 +6,12 @@
 }
 
 @Styles.Render("~/Content/css/Login.css")
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css" />
 
 <h2>Clientes</h2>
 
-<table id="tblPersonas" class="display">
+<table id="tblCustomers" class="display">
 
     <thead>
         <tr>
@@ -40,14 +42,19 @@
                 <td>@Html.DisplayFor(modelItem => item.Materno)</td>
                 <td>@Html.DisplayFor(modelItem => item.IdViaje)</td>
             </tr>
-         }
-        </tbody>
+        }
+    </tbody>
 </table>
 
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#tblPersonas').DataTable();
+            $('#tblCustomers').DataTable({
+                dom: 'Blfrtip',
+                buttons: [
+                    'excelHtml5'                    
+                ],                
+            });
         });
     </script>
 }
