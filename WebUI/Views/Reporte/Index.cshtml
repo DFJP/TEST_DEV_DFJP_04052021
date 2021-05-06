@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebUI.Objects.Cliente>
+
+@{
+    ViewBag.Title = "Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/css/Login.css")
+
+<h2>Clientes</h2>
+
+<table id="tblPersonas" class="display">
+
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.IdCliente)</th>
+            <th>@Html.DisplayNameFor(model => model.FechaRegistroEmpresa)</th>
+            <th>@Html.DisplayNameFor(model => model.RazonSocial)</th>
+            <th>@Html.DisplayNameFor(model => model.RFC)</th>
+            <th>@Html.DisplayNameFor(model => model.Sucursal)</th>
+            <th>@Html.DisplayNameFor(model => model.IdEmpleado)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Paterno)</th>
+            <th>@Html.DisplayNameFor(model => model.Materno)</th>
+            <th>@Html.DisplayNameFor(model => model.IdViaje)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.IdCliente)</td>
+                <td>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.FechaRegistroEmpresa))</td>
+                <td>@Html.DisplayFor(modelItem => item.RazonSocial)</td>
+                <td>@Html.DisplayFor(modelItem => item.RFC)</td>
+                <td>@Html.DisplayFor(modelItem => item.Sucursal)</td>
+                <td>@Html.DisplayFor(modelItem => item.IdEmpleado)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Paterno)</td>
+                <td>@Html.DisplayFor(modelItem => item.Materno)</td>
+                <td>@Html.DisplayFor(modelItem => item.IdViaje)</td>
+            </tr>
+         }
+        </tbody>
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#tblPersonas').DataTable();
+        });
+    </script>
+}
+
+
